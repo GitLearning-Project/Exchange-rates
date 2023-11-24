@@ -26,5 +26,15 @@ if user_case == 1:
     else:
         print(f"Курс {code_valute} на текущий день неизвестен")
 else:
-    # здесь должен быть наш новый функционал, который выводит таблицу курсов всех валют
-    print("ok")
+    currency_rates = {}  # Словарь для хранения курсов валют
+
+    for valute in tree.findall(".//Valute"):
+        char_code = valute.find("CharCode").text
+        value = valute.find("Value").text
+        currency_rates[char_code] = value
+
+    # Выводим таблицу с курсами всех валют
+    print("Курсы валют к рублю:")
+    print("--------------------")
+    for char_code, value in currency_rates.items():
+        print(f"{char_code}: {value}")
